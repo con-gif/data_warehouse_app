@@ -1,0 +1,17 @@
+<div class="card">
+    <h3>Export Data</h3>
+    <form action="/export" method="GET">
+        <div class="form-group">
+            <label for="dataset">Select Dataset:</label>
+            <select name="dataset" id="dataset" class="form-control">
+                <option value="deduplicated">Deduplicated Data</option>
+                <option value="duplicate">Duplicate Data</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fields">Fields to Export:</label>
+            <input type="text" name="fields" id="fields" class="form-control" placeholder="e.g., name, age">
+        </div>
+        <button type="submit" class="btn btn-success"><i class="fas fa-download"></i> Export Data</button>
+    </form>
+</div>

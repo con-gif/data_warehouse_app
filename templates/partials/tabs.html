@@ -1,0 +1,28 @@
+<div class="tab-buttons">
+    <button class="active" data-tab="import">Import</button>
+    <button data-tab="clean">Clean & Validate</button>
+    <button data-tab="format">Format</button>
+    <button data-tab="export">Export</button>
+    <button data-tab="screen">Screen</button>
+    <button data-tab="duplicates">Duplicates</button>
+
+</div>
+
+<div id="import" class="tab-content active">
+    {% include 'partials/import_tab.html' %}
+</div>
+<div id="clean" class="tab-content">
+    {% include 'partials/clean_tab.html' %}
+</div>
+<div id="format" class="tab-content">
+    {% include 'partials/format_tab.html' %}
+</div>
+<div id="export" class="tab-content">
+    {% include 'partials/export_tab.html' %}
+</div>
+<div id="screen" class="tab-content">
+    {% include 'partials/screen_tab.html' %}
+</div>
+<div id="duplicates" class="tab-content">
+    {% include 'partials/duplicates_tab.html' %}
+</div>

@@ -1,0 +1,37 @@
+<div class="card">
+    <h3>Manage Duplicates</h3>
+    <p>Click the button below to remove duplicates from the database.</p>
+    <button id="deduplicate-btn" class="btn btn-danger">
+        <i class="fas fa-user-slash"></i> Remove Duplicates
+    </button>
+    <div id="deduplicate-status" style="margin-top:20px;">
+        <!-- Status info will go here -->
+    </div>
+</div>
+
+<script>
+document.getElementById('deduplicate-btn').addEventListener('click', async () => {
+    document.getElementById('deduplicate-status').textContent = "Starting deduplication...";
+    const response = await fetch('/deduplicate', {method: 'POST'});
+    const result = await response.json();
+
+    if (response.ok) {
+        const jobId = result.job_id;
+        // Poll the status endpoint every few seconds
+        const intervalId = setInterval(async () => {
+            const statusResponse = await fetch('/deduplicate/status?job_id=' + jobId);
+            const statusResult = await statusResponse.json();
+            if (statusResult.status === 'completed') {
+                clearInterval(intervalId);
+                document.getElementById('deduplicate-status').textContent =
+                    "Duplicate removal complete. Removed " + statusResult.duplicates_removed + " duplicates.";
+            } else {
+                document.getElementById('deduplicate-status').textContent =
+                    "Running... Duplicates removed so far: " + statusResult.duplicates_removed;
+            }
+        }, 5000);
+    } else {
+        document.getElementById('deduplicate-status').textContent = "Error: " + result.message;
+    }
+});
+</script>
